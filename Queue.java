@@ -5,35 +5,46 @@ import java.io.*;
 import java.util.*;
 
 class Queue {
-
-
+    private Stack<Integer> s1 ;
+    private Stack<Integer> s2 ;
     public Queue() {
-
+        s1 = new Stack<>();
+        s2 = new Stack<>();
     }
 
-    // Push element x to the back of queue.
+    // Push element x to the back of queue.Time Complexity: O(1),  space complexity: O(N)
     public void enqueue(int x) {
-
+        s1.push(x);
     }
 
-    // Removes the element from in front of queue.
+    // Removes the element from in front of queue.Time complexity: O(N), space complexity O(N)
     public int dequeue() {
-
+        if (s2.isEmpty()) {
+            while (!s1.isEmpty())
+                s2.push(s1.pop());
+        }
+        return s2.pop();
     }
     
-    // Get the front element.
+    // Get the front element.Time complexity: O(N), space complexity O(N)
     public int peek() {
-
+        if (!s2.isEmpty()) {
+            return s2.peek();
+        } else {
+            while (!s1.isEmpty())
+                s2.push(s1.pop());
+        }
+        return s2.peek();
     }
     
-    // Return whether the queue is empty.
+    // Return whether the queue is empty.Time complexity: O(1), space complexity: 0
     public boolean empty() {
-
+        return s1.isEmpty() && s2.isEmpty();
     }
 
-    // Return the number of elements in queue.
-    public boolean size() {
-
+    // Return the number of elements in queue.Time complexity: O(1), space complexity: 0
+    public int size() {
+        return s1.size()+s2.size();
     }
     
     public static void main(String[] args) {
